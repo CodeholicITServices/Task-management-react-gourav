@@ -35,7 +35,7 @@ const NoteState = (props) => {
     const json = await response.json() 
     setNotes(json)
     window.scrollTo(0, 0)
-    // setProgress(100)
+    setProgress(100)
     // showAlert('Edited successfully.', 'success')
   }
 
