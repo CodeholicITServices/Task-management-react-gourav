@@ -42,10 +42,10 @@ const Login = (props) => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="password" />
+                    <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="password" autocomplete="current-password" />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button disabled={credentials.email.length < 1 || credentials.password.length < 1} type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
     )

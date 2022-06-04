@@ -1,11 +1,10 @@
 import NoteContext from "./noteContext";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import LoadingBar from 'react-top-loading-bar';
 
 const NoteState = (props) => {
   const host = "http://localhost:5000"
-  const notesInitial = []
-  const [notes, setNotes] = useState(notesInitial)
+  const [notes, setNotes] = useState([])
   const [user, setUser] = useState([])
   const [progress, setProgress] = useState(0)
   const authtoken = localStorage.getItem("auth-token")
@@ -72,7 +71,7 @@ const NoteState = (props) => {
           "auth-token": authtoken
         }
       });
-      const json = response.json(); 
+      // const json = response.json(); 
       const newNotes = notes.filter((note) => { return note._id !== id })
       setNotes(newNotes)
       window.scrollTo(0, 0)
@@ -93,7 +92,7 @@ const NoteState = (props) => {
       },
       body: JSON.stringify({title, description, tag})
     });
-    const json = await response.json(); 
+    // const json = await response.json(); 
 
      let newNotes = JSON.parse(JSON.stringify(notes))
     // Logic to edit in client
