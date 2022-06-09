@@ -1,30 +1,36 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext'
 
 
 const Login = (props) => {
+    let url = process.env.REACT_APP_BACKEND_URL
+    const context = useContext(noteContext)
+    const { getUser, showAlert } = context;
     const [credentials, setCredentials] = useState({email: "", password: ""}) 
     let history = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch(`${url}/api/login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({email: credentials.email, password: credentials.password})
         });
         const json = await response.json()
-        console.log(json);
+        // console.log(json);
         if (json.success){
-            // Save the auth token and redirect
-            localStorage.setItem('auth-token', json.authtoken); 
+            await localStorage.setItem('token', json.token);
             history("/dashboard");
-
+            getUser()
+            
         }
         else{
-            alert("Invalid credentials");
+            showAlert('Invalid credentials', "Danger")
         }
     }
 
@@ -33,16 +39,16 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className='my-3'>
             <form  onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" />
+                    <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" autoComplete='username' name="email" aria-describedby="emailHelp" />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="password" autocomplete="current-password" />
+                    <input type="password" className="form-control" value={credentials.password} onChange={onChange} name="password" id="current-password" autoComplete="current-password" />
                 </div>
 
                 <button disabled={credentials.email.length < 1 || credentials.password.length < 1} type="submit" className="btn btn-primary">Submit</button>

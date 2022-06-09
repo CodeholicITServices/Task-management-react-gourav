@@ -1,56 +1,63 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext'
 
 const Signup = (props) => {
-
+  let url = process.env.REACT_APP_BACKEND_URL
+  const context = useContext(noteContext)
+  const { getUser, showAlert } = context;
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
+  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: ""})
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, cpassword } = credentials;
-    const response = await fetch('http://localhost:5000/api/auth/createuser', {
+    const { name, email, password } = credentials;
+    const response = await fetch(`${url}/api/register`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      },
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
+    },
       body: JSON.stringify({ name, email, password })
     });
     const json = await response.json()
     // console.log(json)
     if (json.success) {
-      localStorage.setItem('auth-token', json.authtoken);
+      localStorage.setItem('token', json.token);
       navigate("/dashboard");
+      getUser()
     }
     else {
-      alert('Something went wrong')
+      showAlert('Something went wrong', 'danger')
     }
   }
 
-  const onChange = (e) => {
+  const onChange = async(e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
 
   return (
     <div className="mt-2">
-      <h2>Create an account to use iNotebook</h2>
+      <h2>Create an account to use Task management System</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name="name" onChange={onChange} required />
+          <input type="text" className="form-control" autoComplete='off' id="name" name="name" onChange={onChange} required />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="email" name="email" aria-describedby="emailHelp" onChange={onChange} required />
+          <input type="email" className="form-control" autoComplete='off' id="email" name="email" aria-describedby="emailHelp" onChange={onChange} required />
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
-          <input type="password" className="form-control" id="password" name="password" onChange={onChange} minLength={5} required />
+          <input type="password" className="form-control" autoComplete='off' id="password" name="password" onChange={onChange} minLength={5} required />
         </div>
         <div className="mb-3">
           <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-          <input type="password" className="form-control" id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
+          <input type="password" className={`form-control ${credentials.password !== credentials.cpassword ? 'is-invalid':''}`} autoComplete='' id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
+          {credentials.password !== credentials.cpassword ? <div id="passwordHelp" className="form-text">Password and confirm password not matched.</div> : ''}
         </div>
         <button disabled={credentials.name.length < 5 || credentials.password.length < 5 || credentials.password !== credentials.cpassword} type="submit" className="btn btn-primary">Submit</button>
       </form>
