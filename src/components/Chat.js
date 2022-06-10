@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Conversation from './Conversation'
+import jQuery from 'jquery'
+import { Link, useLocation } from 'react-router-dom'
 
 const Chat = () => {
+    const location = useLocation()
+    const [isConvo, setIsConvo] = useState(false)
+    const startConvo = (user_id, user_name, room_id)=>{
+        jQuery('#chatArea').html('')
+        jQuery('.chat-active').removeClass('chat-active');
+        jQuery(this).parent().addClass('chat-active');
+        var messages = JSON.parse('{}')
+    }
+
+    const handleConvCLick = ()=>{
+        setIsConvo(true)
+    }
     return (
         <div>
             <div className="content">
@@ -20,9 +35,11 @@ const Chat = () => {
                                     <div className="collapse" id="direct-messages">
                                         <ul className="list-unstyled fw-normal pb-1 small">
                                             
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-user="user.user_id" data-name="user.user_name" data-room="user.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}} alt="uImage"/> username</a></li>
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-user="user.user_id" data-name="user.user_name" data-room="user.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}} alt="uImage2" /> username</a></li>
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-user="user.user_id" data-name="user.user_name" data-room="user.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}} alt="uImage3" /> username</a></li>
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> username</span></li>
+
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> usernam</span></li>
+                                            
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> username</span></li>
                                             
                                         </ul>
                                     </div>
@@ -34,21 +51,23 @@ const Chat = () => {
                                     <span id="moreopt"><i className="btn fa-solid fa-ellipsis-vertical mx-4 collapsed" data-bs-toggle="collapse" data-bs-target="#opts"></i></span>
                                     <div className="collapse" id="opts">
                                         <ul className="list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/" id="groupCreate" className="d-inline-flex align-items-end bd-subnavbar rounded active" style={{marginLeft: "125px"}}>Create</a></li>
+                                            <li><span id="groupCreate" className="d-inline-flex align-items-end bd-subnavbar rounded btn" style={{marginLeft: "100px"}}>Create</span></li>
                                         </ul>
                                     </div>
 
                                     <div className="collapse" id="groups">
                                         <ul className="list-unstyled fw-normal pb-1 small">
                                             
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-name="group.name" data-room="group.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: "8px", borderRadius: "50%"}} alt="gImage1" />group.name</a></li>
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-name="group.name" data-room="group.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: "8px", borderRadius: "50%"}} alt="gImage2" />group.name</a></li>
-                                            <li><a href="/" className="d-inline-flex align-items-center rounded active startConvo" data-name="group.name" data-room="group.room_id" aria-current="page"><img src="" width="25px" style={{marginRight: "8px", borderRadius: "50%"}} alt="gImage3" />group.name</a></li>
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> groupname</span></li>
+
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded  btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> groupname</span></li>
+
+                                            <li> <span onClick={handleConvCLick} className="d-inline-flex align-items-center rounded  btn" aria-current="page" > <img src="default.jpg"    width="25px" style={{marginRight: 8+"px", borderRadius: 50+"%"}}   alt="uImage"/> groupname</span></li>
                                             
                                         </ul>
                                     </div>
                                 </li>
-                                <li className="my-3 mx-4" style={{borderTop: "1px solid #ffffff!important", color: "#ffffff"}}></li>
+                                <li className="my-3 mx-4" style={{borderTop: 1+"px solid", color: "#ffffff"}}></li>
                                 <li>
                                     <a href="/" className="btn">
                                         Settings
@@ -129,12 +148,13 @@ const Chat = () => {
                             </div>
                         </div>
                         <div id="chatArea">
-                            <div className="bd-intro ps-lg-4">
+                            {!isConvo ? <div className="bd-intro ps-lg-4">
                                 <div className="">
                                     <h1 className="bd-title" id="content">Messages</h1>
                                 </div>
                                 <p className="bd-lead">Start Messaging with other users.</p>
-                            </div>
+                            </div> : <Conversation/>}
+                            
                         </div>
                     </main>
                 </div>

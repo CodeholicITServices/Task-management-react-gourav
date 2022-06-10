@@ -4,6 +4,7 @@ import noteContext from '../context/notes/noteContext'
 
 
 const Login = (props) => {
+    const {setProgress} = props
     let url = process.env.REACT_APP_BACKEND_URL
     const context = useContext(noteContext)
     const { getUser, showAlert } = context;
@@ -12,6 +13,7 @@ const Login = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProgress(20)
         const response = await fetch(`${url}/api/login`, {
             method: 'POST',
             headers: {
@@ -21,9 +23,11 @@ const Login = (props) => {
             },
             body: JSON.stringify({email: credentials.email, password: credentials.password})
         });
+        setProgress(50)
         const json = await response.json()
         // console.log(json);
         if (json.success){
+            setProgress(80)
             await localStorage.setItem('token', json.token);
             history("/dashboard");
             getUser()
@@ -32,6 +36,7 @@ const Login = (props) => {
         else{
             showAlert('Invalid credentials', "Danger")
         }
+        setProgress(100)
     }
 
     const onChange = (e)=>{

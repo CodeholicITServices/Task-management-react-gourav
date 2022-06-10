@@ -14,23 +14,37 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Chat from './components/Chat';
+import PageNotFound from './components/PageNotFound';
+import LoadingBar from 'react-top-loading-bar'
+import { useState } from 'react';
+
 
 function App() {
-  
+  const [progress, setProgress] = useState(0)
+
   return (
     <>
       <NoteState>
         <Router>
-          <Navbar />
+        <LoadingBar
+        height={5}
+          color='#f11946'
+          shadow={true}
+          progress={progress}
+          onLoaderFinished={() => setProgress(0)}
+        />
+          <Navbar setProgress={setProgress} />
           <Alert />
-          <div className="container">
+          <div className="container" style={{marginTop: 4+"rem"}}>
             <Routes>
-              <Route exact path='/' element={<Home />}></Route>
+              <Route exact path='' element={<Home />}></Route>
               <Route exact path='/dashboard' element={<Dashboard />}></Route>
               <Route exact path="/about" element={<About />}></Route>
-              <Route exact path="/login" element={<Login />}></Route>
-              <Route exact path="/signup" element={<Signup />}></Route>
+              <Route exact path="/login" element={<Login  setProgress={setProgress} />}></Route>
+              <Route exact path="/signup" element={<Signup  setProgress={setProgress} />}></Route>
               <Route exact path="/chat" element={<Chat />}></Route>
+              <Route path="*" element={<PageNotFound />}
+              />
             </Routes>
           </div>
         </Router>

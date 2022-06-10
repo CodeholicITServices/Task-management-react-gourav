@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import noteContext from '../context/notes/noteContext'
 
 const Signup = (props) => {
+  const {setProgress} = props
   let url = process.env.REACT_APP_BACKEND_URL
   const context = useContext(noteContext)
   const { getUser, showAlert } = context;
@@ -12,6 +13,7 @@ const Signup = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = credentials;
+    setProgress(20)
     const response = await fetch(`${url}/api/register`, {
       method: 'POST',
       headers: {
@@ -21,9 +23,11 @@ const Signup = (props) => {
     },
       body: JSON.stringify({ name, email, password })
     });
+    setProgress(50)
     const json = await response.json()
     // console.log(json)
     if (json.success) {
+      setProgress(80)
       localStorage.setItem('token', json.token);
       navigate("/dashboard");
       getUser()
@@ -31,6 +35,7 @@ const Signup = (props) => {
     else {
       showAlert('Something went wrong', 'danger')
     }
+    setProgress(100)
   }
 
   const onChange = async(e) => {
