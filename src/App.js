@@ -1,10 +1,6 @@
 import './App.css';
 import './docs.css'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import { Home } from './components/Home';
 import About from './components/About';
@@ -17,6 +13,8 @@ import Chat from './components/Chat';
 import PageNotFound from './components/PageNotFound';
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.js';
 
 
 function App() {
@@ -42,7 +40,7 @@ function App() {
               <Route exact path="/about" element={<About />}></Route>
               <Route exact path="/login" element={<Login  setProgress={setProgress} />}></Route>
               <Route exact path="/signup" element={<Signup  setProgress={setProgress} />}></Route>
-              <Route exact path="/chat" element={<Chat />}></Route>
+              <Route exact path="/chat" element={<Chat setProgress={setProgress} />}></Route>
               <Route path="*" element={<PageNotFound />}
               />
             </Routes>

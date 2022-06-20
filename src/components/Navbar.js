@@ -1,19 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { NavDropdown, Navbar } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import noteContext from '../context/notes/noteContext';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
 
 
-const Navbar = (props) => {
-    const {setProgress} = props
+const MyNavbar = (props) => {
+    const { setProgress } = props
     let url = process.env.REACT_APP_BACKEND_URL
     const context = useContext(noteContext);
-    const { user, showAlert } = context;
+    const { user, setUser, showAlert, getUser, isLogin, setIsLogin } = context;
     let location = useLocation();
     let token = localStorage.getItem("token")
-    let homeLink = ""
-    let logoutLink = ""
-    let navigate =  useNavigate()
-    let logout = async()=>{
+    let navigate = useNavigate()
+    let logout = async () => {
         setProgress(10)
         const response = await fetch(`${url}/api/logout`, {
             method: 'POST',
@@ -24,60 +26,109 @@ const Navbar = (props) => {
                 'Authorization': `Bearer ${token}`
             },
         });
-        setProgress(30)
+        setProgress(50)
         const json = await response.json()
-        console.log(json);
-        if (json.success){
-            setProgress(60)
+        // console.log(json);
+        if (json.success) {
+            setProgress(70)
+
+            setUser([])
+            localStorage.removeItem("user")
+
+            setIsLogin(false)
             localStorage.removeItem("token")
+            setProgress(100)
+            
             navigate("/")
         }
-        else{
+        else {
             showAlert('Something went wrong, please try again later', "Danger")
+            setProgress(100)
         }
-        setProgress(100)
     }
-    // useEffect(() => {
-    //     if(token){
-    //         getUser()
-    //     }
-    //         // eslint-disable-next-line
-    // }, [])
-    // console.log(user)
-  
-    if(token != null){
-        homeLink = <Link className={`nav-link ${location.pathname==="/dashboard"? "active": ""}`} aria-current="page" to="/dashboard">Dashboard</Link>
 
-        logoutLink = <><span className="navbar-text mx-2">Welcome, <b>{user.name}</b></span><form className="d-flex"><button type='button' className="btn btn-primary mx-1" onClick={()=>{logout()}}>Logout</button></form></>
-    }
-    else{
-        homeLink = <Link className={`nav-link ${location.pathname==="/"? "active": ""}`} aria-current="page" to="/">Home</Link>
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (token) {
+            console.log(token)
+            setIsLogin(true)
+        }
+        // eslint-disable-next-line
+    }, [])
 
-        logoutLink = <><Link className="btn btn-primary btn-sm btn-lg mx-1" to="/login" role="button">Login</Link><Link className="btn btn-primary btn-sm btn-lg mx-1" to="/signup" role="button">Signup</Link>'</>
+    useEffect(() => {
+        
+        console.log(isLogin)
+        if (isLogin) {
+            const localUser = localStorage.getItem("user")
+            if(localUser){
+                setUser(JSON.parse(localUser))
+
+            }else{
+                getUser()
+            }
+
+        }
+        // eslint-disable-next-line
+    }, [isLogin])
+
+    if (isLogin) {
+
+        return (
+            // <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
+            <Container>
+            <Navbar collapseOnSelect expand="md" bg="white" variant="light" fixed='top'>
+                <Container fluid>
+
+                    <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
+
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+
+                        <Nav className="me-auto">
+                            <li className="nav-item">
+                                <Link className={`nav-link ${location.pathname === "/dashboard" ? "active" : ""}`} aria-current="page" to="/dashboard">Dashboard</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className={`nav-link ${location.pathname.includes("/chat") ? "active" : ""}`} to="/chat">Chat</Link>
+                            </li>
+                        </Nav>
+                        <Nav className="ms-auto">
+                            <NavDropdown title={user.name} id="collasible-nav-dropdown" style={{marginRight: 100+"px"}}>
+                                <NavDropdown.Item href="">My Profile</NavDropdown.Item>
+                                <NavDropdown.Item href="">Change Password</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={() => { logout() }}>
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            </Container>
+        )
     }
-    return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div className="container-fluid">
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            {homeLink}
-                        </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname.includes("/chat")? "active": ""}`} to="/chat">Chat</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${location.pathname==="/about"? "active": ""}`} to="/about">About</Link>
-                        </li>
-                    </ul>
-                    {logoutLink}
-                </div>
-            </div>
-        </nav>
-    )
+    else {
+        return (
+            <Navbar collapseOnSelect expand="md" bg="white" variant="light" fixed='top'>
+                <Container fluid>
+                    <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ms-auto">
+                            <li className="nav-item">
+                                <Link className='mx-1' to="/login" role="button"><Button variant="outline-primary" size='sm'>Login</Button></Link>
+                                <Link className='mx-1' to="/signup" role="button"><Button variant="outline-primary" size='sm'>Register</Button></Link>
+                            </li>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        )
+
+
+    }
 }
 
-export default Navbar
+export default MyNavbar

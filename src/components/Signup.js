@@ -28,7 +28,7 @@ const Signup = (props) => {
     // console.log(json)
     if (json.success) {
       setProgress(80)
-      localStorage.setItem('token', json.token);
+      sessionStorage.setItem('token', json.token);
       navigate("/dashboard");
       getUser()
     }
