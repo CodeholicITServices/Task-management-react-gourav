@@ -40,6 +40,7 @@ const Signup = (props) => {
 
   const onChange = async(e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
+
   }
 
   return (
@@ -58,11 +59,12 @@ const Signup = (props) => {
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
           <input type="password" className="form-control" autoComplete='off' id="password" name="password" onChange={onChange} minLength={5} required />
+          <div id="passwordHelp" className="form-text">Password should be more than 5 five characters long.</div>
         </div>
         <div className="mb-3">
           <label htmlFor="cpassword" className="form-label">Confirm Password</label>
           <input type="password" className={`form-control ${credentials.password !== credentials.cpassword ? 'is-invalid':''}`} autoComplete='' id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
-          {credentials.password !== credentials.cpassword ? <div id="passwordHelp" className="form-text">Password and confirm password not matched.</div> : ''}
+          {credentials.password !== credentials.cpassword ? <div id="cpasswordHelp" className="form-text">Password and confirm password not matched.</div> : ''}
         </div>
         <button disabled={credentials.name.length < 5 || credentials.password.length < 5 || credentials.password !== credentials.cpassword} type="submit" className="btn btn-primary">Submit</button>
       </form>

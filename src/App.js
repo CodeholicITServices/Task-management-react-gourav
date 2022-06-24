@@ -32,8 +32,8 @@ function App() {
           onLoaderFinished={() => setProgress(0)}
         />
           <Navbar setProgress={setProgress} />
-          <Alert />
-          <div className="container" style={{marginTop: 4+"rem"}}>
+          <div className="container" style={{marginTop: 5+"rem"}}>
+            <Alert />
             <Routes>
               <Route exact path='' element={<Home />}></Route>
               <Route exact path='/dashboard' element={<Dashboard />}></Route>

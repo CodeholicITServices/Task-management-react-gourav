@@ -23,7 +23,7 @@ const Login = (props) => {
             jQuery('input[name=password]')[0].type = 'password'
             event.target.classList  = 'fa fa-eye'
         }
-        console.log("CLicked")
+        // console.log("CLicked")
     }
 
     const handleSubmit = async (e) => {
@@ -37,35 +37,39 @@ const Login = (props) => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
-        }).then((response) => {
+        })
+        .then((response) => {
             setProgress(50)
             if (response.ok) {
               return response.json();
             }
-            // console.log("Error")
-            showAlert('Invalid credentials', "Danger")
-            setCredentials({ email: "", password: "" })
-          })
-          .then((json) => {
+            else{
+                showAlert('Invalid credentials', "Danger")
+                setCredentials({ email: "", password: "" })
+            }
+          
+        })   
+        .then((json) => {
             setProgress(80)
             if (json.success) {
-                setProgress(80)
                 localStorage.setItem('token', json.token);
                 setIsLogin(true)
+                setProgress(100)
                 history("/dashboard");
                 // getUser()
             }
             else {
                 showAlert('Invalid credentials', "Danger")
                 setCredentials({ email: "", password: "" })
+                setProgress(100)
             }
-          })
-          .catch((error) => {
-            // console.log(error)
+        })
+        .catch((error) => {
             showAlert('Invalid credentials', "Danger")
             setCredentials({ email: "", password: "" })
-          });
-        setProgress(100)
+            console.log(error)
+            setProgress(100)
+        });
     }
 
     const onChange = (e) => {

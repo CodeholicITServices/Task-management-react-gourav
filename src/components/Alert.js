@@ -8,11 +8,9 @@ export const Alert = () => {
 
     if(alert){
         return (
-            <div className='m-3'>
-                <div className={`alert alert-${alert.type.toLowerCase()} alert-dismissible fade show`} style={{marginTop: 4+'rem'}} role="alert">
-                    <strong>{alert.type}</strong> : {alert.msg}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <div className={`alert alert-${alert.type.toLowerCase()} alert-dismissible fade show`} role="alert">
+                <strong>{alert.type}</strong> : {alert.msg}
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         )
     }

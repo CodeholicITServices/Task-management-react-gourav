@@ -10,10 +10,8 @@ const Chat = (props) => {
     const [isConvo, setIsConvo] = useState(false)
     const [convUser, setConvUser] = useState("")
     const context = useContext(noteContext)
-    const { getAllUsers, AllUsers, user, setRoom, socket } = context;
+    const { getAllUsers, AllUsers, user, setRoom, startSocket, socket } = context;
     const { setProgress } = props
-
-    let camera_button = document.querySelector("#start-camera");
     let video = document.querySelector("#video");
     let click_button = document.querySelector(".click-photo");
     let canvas = document.querySelector("#canvas");
@@ -26,7 +24,7 @@ const Chat = (props) => {
         setProgress(100)
         setConvUser(name)
         setRoom(room)
-
+        startSocket(room)
     }
 
     const handleCloseCam = ()=>{
@@ -40,7 +38,7 @@ const Chat = (props) => {
 
     const sendImg = ()=>{
         let data_url = jQuery('input[name=img_data]').val()
-        if(data_url != ''){
+        if(data_url !== ''){
             socket.emit('sendChatToServer', JSON.stringify({
                 'message': data_url,
                 'type': 'image',
@@ -87,8 +85,7 @@ const Chat = (props) => {
         getAllUsers()
         setProgress(100)
         // eslint-disable-next-line
-
-    }, [])
+    }, [convUser])
 
 
     return (
@@ -225,7 +222,7 @@ const Chat = (props) => {
                                     <h1 className="bd-title" id="content">Messages</h1>
                                 </div>
                                 <p className="bd-lead">Start Messaging with other users.</p>
-                            </div> : <Conversation convUser={convUser} />}
+                            </div> : <Conversation key={convUser} convUser={convUser} />}
 
                         </div>
                     </main>

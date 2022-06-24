@@ -16,8 +16,9 @@ const MyNavbar = (props) => {
     let token = localStorage.getItem("token")
     let navigate = useNavigate()
     let logout = async () => {
+
         setProgress(10)
-        const response = await fetch(`${url}/api/logout`, {
+        fetch(`${url}/api/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,32 +26,45 @@ const MyNavbar = (props) => {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-        });
-        setProgress(50)
-        const json = await response.json()
-        // console.log(json);
-        if (json.success) {
-            setProgress(70)
-
-            setUser([])
-            localStorage.removeItem("user")
-
-            setIsLogin(false)
-            localStorage.removeItem("token")
-            setProgress(100)
-            
-            navigate("/")
-        }
-        else {
+        }).then((response) => {
+            setProgress(50)
+            if (response.ok) {
+              return response.json();
+            }
+            // console.log("Error")
             showAlert('Something went wrong, please try again later', "Danger")
             setProgress(100)
-        }
+        })
+        .then((json) => {
+            setProgress(80)
+            if (json.success) {
+                setProgress(70)
+    
+                setUser([])
+                localStorage.removeItem("user")
+    
+                setIsLogin(false)
+                localStorage.removeItem("token")
+                setProgress(100)
+                
+                navigate("/")
+            }
+            else {
+                showAlert('Something went wrong, please try again later', "Danger")
+                setProgress(100)
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            showAlert('Something went wrong, please try again later', "Danger")
+        });
+        setProgress(100)
     }
 
     useEffect(() => {
         const token = localStorage.getItem("token")
         if (token) {
-            console.log(token)
+            // console.log(token)
             setIsLogin(true)
         }
         // eslint-disable-next-line
@@ -58,7 +72,7 @@ const MyNavbar = (props) => {
 
     useEffect(() => {
         
-        console.log(isLogin)
+        // console.log(isLogin)
         if (isLogin) {
             const localUser = localStorage.getItem("user")
             if(localUser){
@@ -77,7 +91,7 @@ const MyNavbar = (props) => {
         return (
             // <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
             <Container>
-            <Navbar collapseOnSelect expand="md" bg="white" variant="light" fixed='top'>
+            <Navbar collapseOnSelect expand="md" bg="light" variant="light" fixed='top'>
                 <Container fluid>
 
                     <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
@@ -111,7 +125,7 @@ const MyNavbar = (props) => {
     }
     else {
         return (
-            <Navbar collapseOnSelect expand="md" bg="white" variant="light" fixed='top'>
+            <Navbar collapseOnSelect expand="md" bg="light" variant="light" fixed='top' className="shadow-sm">
                 <Container fluid>
                     <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
