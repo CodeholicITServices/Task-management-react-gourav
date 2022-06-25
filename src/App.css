@@ -1,8 +1,8 @@
-html {
+html{
   box-sizing: border-box;
 }
 
-.cd_chat_username {
+.cd_chat_username{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -10,19 +10,19 @@ html {
   text-align: start;
 }
 
-.column {
+.column{
   float: left;
   width: 33.3%;
   margin-bottom: 16px;
   padding: 0 8px;
 }
 
-.card {
+.card{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 8px;
 }
 
-.about-section {
+.about-section{
   padding: 50px;
   text-align: center;
   background-color: #474e5d;
@@ -30,29 +30,29 @@ html {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.w3schools.com/howto/photographer.jpg");
 }
 
-.container {
+.container{
   padding: 0 16px;
 }
 
 .container::after,
-.row::after {
+.row::after{
   content: "";
   clear: both;
   display: table;
 }
 
-.title {
+.title{
   color: grey;
 }
 
-.button:hover {
+.button:hover{
   background-color: #555;
 }
 
 
 /* Chats */
 
-input[type="file" i] {
+input[type="file" i]{
   appearance: none;
   background-color: initial;
   cursor: pointer;
@@ -66,7 +66,7 @@ input[type="file" i] {
   overflow: hidden !important;
 }
 
-.sender {
+.sender{
 
   font-size: 0.7rem;
   position: absolute;
@@ -76,17 +76,17 @@ input[type="file" i] {
 
 }
 
-.cd_new_convo {
+.cd_new_convo{
   border: black 1px solid;
   border-radius: 86px;
   background: blueviolet;
 }
 
-.nexus5 {
+.nexus5{
   width: 100%;
 }
 
-.page {
+.page{
   width: 100%;
   height: 100%;
   display: flex;
@@ -94,17 +94,17 @@ input[type="file" i] {
   justify-content: center;
 }
 
-.marvel-device .screen {
+.marvel-device .screen{
   text-align: left;
 }
 
-.screen-container {
+.screen-container{
   height: 100%;
 }
 
 /* Status Bar */
 
-.status-bar {
+.status-bar{
   height: 25px;
   background: #004e45;
   color: #fff;
@@ -112,13 +112,13 @@ input[type="file" i] {
   padding: 0 8px;
 }
 
-.status-bar:after {
+.status-bar:after{
   content: "";
   display: table;
   clear: both;
 }
 
-.status-bar div {
+.status-bar div{
   float: right;
   position: relative;
   top: 50%;
@@ -129,17 +129,17 @@ input[type="file" i] {
 
 /* Chat */
 
-.chat {
+.chat{
   height: calc(100% - 69px);
 }
 
-.chat-container {
+.chat-container{
   height: 100%;
 }
 
 /* User Bar */
 
-.user-bar {
+.user-bar{
   height: 55px;
   background: #aaaaaa;
   /*color: #fff;*/
@@ -149,50 +149,50 @@ input[type="file" i] {
   z-index: 1;
 }
 
-.user-bar:after {
+.user-bar:after{
   content: "";
   display: table;
   clear: both;
 }
 
-.user-bar div {
+.user-bar div{
   float: left;
   transform: translateY(-50%);
   position: relative;
   top: 50%;
 }
 
-.user-bar .actions {
+.user-bar .actions{
   float: right;
   margin: 0 0 0 20px;
 }
 
-.user-bar .actions.more {
+.user-bar .actions.more{
   margin: 0 12px 0 32px;
 }
 
-.user-bar .actions.attachment {
+.user-bar .actions.attachment{
   margin: 0 0 0 30px;
 }
 
-.user-bar .actions.attachment i {
+.user-bar .actions.attachment i{
   display: block;
 }
 
-.user-bar .avatar {
+.user-bar .avatar{
   margin: 0 0 0 5px;
   width: 36px;
   height: 36px;
 }
 
-.user-bar .avatar img {
+.user-bar .avatar img{
   border-radius: 50%;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   display: block;
   width: 100%;
 }
 
-.user-bar .name {
+.user-bar .name{
   font-size: 17px;
   font-weight: 600;
   text-overflow: ellipsis;
@@ -203,7 +203,7 @@ input[type="file" i] {
   width: 110px;
 }
 
-.user-bar .status {
+.user-bar .status{
   display: block;
   font-size: 13px;
   font-weight: 400;
@@ -212,7 +212,7 @@ input[type="file" i] {
 
 /* Conversation */
 
-.conversation {
+.conversation{
   height: calc(100% - 12px);
   position: relative;
   /*background: #efe7dd url("http://127.0.0.1:8000/static/Code_CMS/images/chat-background-2.jpg") repeat;*/
@@ -220,27 +220,27 @@ input[type="file" i] {
   z-index: 0;
 }
 
-.conversation ::-webkit-scrollbar {
+.conversation ::-webkit-scrollbar{
   transition: all 2s;
   width: 5px;
   height: 1px;
   z-index: 10;
 }
 
-.chat-active {
+.chat-active{
   background-color: #aaaaaa;
   box-shadow: 0px 4px 7px 0px #000000;
 }
 
-.conversation ::-webkit-scrollbar-track {
+.conversation ::-webkit-scrollbar-track{
   background: transparent;
 }
 
-.conversation ::-webkit-scrollbar-thumb {
+.conversation ::-webkit-scrollbar-thumb{
   background: #b3ada7;
 }
 
-.conversation .conversation-container {
+.conversation .conversation-container{
   height: calc(100vh - 200px);
   box-shadow: inset 0 10px 10px -10px #000000;
   overflow-x: hidden;
@@ -250,7 +250,7 @@ input[type="file" i] {
   /*height: 500px;*/
 }
 
-.conversation .conversation-container:after {
+.conversation .conversation-container:after{
   content: "";
   display: table;
   clear: both;
@@ -258,7 +258,7 @@ input[type="file" i] {
 
 /* Messages */
 
-.message {
+.message{
   color: #000;
   clear: both;
   line-height: 18px;
@@ -271,7 +271,7 @@ input[type="file" i] {
   z-index: -1;
 }
 
-.message:after {
+.message:after{
   position: absolute;
   content: "";
   width: 0;
@@ -279,21 +279,21 @@ input[type="file" i] {
   border-style: solid;
 }
 
-.metadata {
-  display: inline-block;
+.metadata{
+  /* display: inline-block; */
   float: right;
   padding: 0 0 0 7px;
   position: relative;
   bottom: -4px;
 }
 
-.metadata .time {
+.metadata .time{
   color: rgba(0, 0, 0, .45);
   font-size: 11px;
   display: inline-block;
 }
 
-.metadata .tick {
+.metadata .tick{
   display: inline-block;
   margin-left: 2px;
   position: relative;
@@ -302,64 +302,64 @@ input[type="file" i] {
   width: 16px;
 }
 
-.metadata .tick svg {
+.metadata .tick svg{
   position: absolute;
   transition: .5s ease-in-out;
 }
 
-.metadata .tick svg:first-child {
+.metadata .tick svg:first-child{
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform: perspective(800px) rotateY(180deg);
   transform: perspective(800px) rotateY(180deg);
 }
 
-.metadata .tick svg:last-child {
+.metadata .tick svg:last-child{
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform: perspective(800px) rotateY(0deg);
   transform: perspective(800px) rotateY(0deg);
 }
 
-.metadata .tick-animation svg:first-child {
+.metadata .tick-animation svg:first-child{
   -webkit-transform: perspective(800px) rotateY(0);
   transform: perspective(800px) rotateY(0);
 }
 
-.metadata .tick-animation svg:last-child {
+.metadata .tick-animation svg:last-child{
   -webkit-transform: perspective(800px) rotateY(-179.9deg);
   transform: perspective(800px) rotateY(-179.9deg);
 }
 
-.message:first-child {
+.message:first-child{
   margin: 16px 0 8px;
 }
 
-.message.received {
+.message.received{
   background: #fff;
   border-radius: 0px 5px 5px 5px;
   float: left;
   padding: 12px;
 }
 
-.message.received .metadata {
+.message.received .metadata{
   padding: 0 0 0 16px;
 }
 
-.message.received:after {
+.message.received:after{
   border-width: 0px 10px 10px 0;
   border-color: transparent #fff transparent transparent;
   top: 0;
   left: -10px;
 }
 
-.message.sent {
+.message.sent{
   background: #ffffff;
   border-radius: 5px 0px 5px 5px;
   float: right;
 }
 
-.message.sent:after {
+.message.sent:after{
   border-width: 0px 0 10px 10px;
   border-color: transparent transparent transparent #e1ffc7;
   top: 0;
@@ -368,7 +368,7 @@ input[type="file" i] {
 
 /* Compose */
 
-.conversation-compose {
+.conversation-compose{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -379,12 +379,12 @@ input[type="file" i] {
 }
 
 .conversation-compose div,
-.conversation-compose input {
+.conversation-compose input{
   background: #fff;
   height: 100%;
 }
 
-.conversation-compose .emoji {
+.conversation-compose .emoji{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -395,7 +395,7 @@ input[type="file" i] {
   width: 48px;
 }
 
-.conversation-compose .input-msg {
+.conversation-compose .input-msg{
   border: 0;
   flex: 1 1 auto;
   font-size: 16px;
@@ -404,7 +404,7 @@ input[type="file" i] {
   min-width: 50px;
 }
 
-.conversation-compose .photo {
+.conversation-compose .photo{
   flex: 0 0 auto;
   border-radius: 0 0 5px 0;
   text-align: center;
@@ -412,7 +412,7 @@ input[type="file" i] {
   width: 48px;
 }
 
-.conversation-compose .photo:after {
+.conversation-compose .photo:after{
   border-width: 0px 0 10px 10px;
   border-color: transparent transparent transparent #fff;
   border-style: solid;
@@ -424,7 +424,7 @@ input[type="file" i] {
   right: -10px;
 }
 
-.conversation-compose .photo i {
+.conversation-compose .photo i{
   display: block;
   color: #7d8488;
   font-size: 24px;
@@ -435,7 +435,7 @@ input[type="file" i] {
   cursor: pointer;
 }
 
-.send {
+.send{
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -447,7 +447,7 @@ input[type="file" i] {
   outline: none;
 }
 
-.send .circle {
+.send .circle{
   background: #aaaaaa;
   border-radius: 50%;
   /*color: #fff;*/
@@ -459,14 +459,14 @@ input[type="file" i] {
   justify-content: center;
 }
 
-.conversation-compose .send .circle i {
+.conversation-compose .send .circle i{
   font-size: 24px;
   margin-left: 5px;
 }
 
 /* Small Screens */
 
-@media (max-width: 768px) {
+@media (max-width: 768px){
   .marvel-device.nexus5 {
     border-radius: 0;
     flex: none;
@@ -477,7 +477,7 @@ input[type="file" i] {
     width: 100%;
   }
 
-  .marvel-device>.screen .chat {
+  .marvel-device>.screen .chat{
     visibility: visible;
   }
 
@@ -485,7 +485,7 @@ input[type="file" i] {
     visibility: hidden;
   }
 
-  .marvel-device .status-bar {
+  .marvel-device .status-bar{
     display: none;
   }
 
@@ -497,23 +497,23 @@ input[type="file" i] {
     bottom: 0;
   }
 
-  .conversation {
+  .conversation{
     height: calc(100vh - 55px);
   }
 
-  .conversation .conversation-container {
+  .conversation .conversation-container{
     min-height: calc(100vh - 200px) !important;
   }
 }
 
-.submitdiv {
+.submitdiv{
   float: right;
   box-shadow: 0px 1px 11px 0px #d2d2d2;
   padding: 40px;
 }
 
 /* The side navigation menu */
-.sidenav {
+.sidenav{
   height: 100%;
   /* 100% Full-height */
   width: 0;
@@ -536,7 +536,7 @@ input[type="file" i] {
 }
 
 /* The navigation menu links */
-.sidenav a {
+.sidenav a{
   padding: 8px 8px 8px 5px;
   text-decoration: none;
   font-size: 20px;
@@ -546,16 +546,16 @@ input[type="file" i] {
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
+.sidenav a:hover{
   color: #f1f1f1;
 }
 
-.sidenav .active {
+.sidenav .active{
   color: #f1f1f1;
 }
 
 /* Position and style the close button */
-.closebtn {
+.closebtn{
   margin-right: 2%;
   transition: transform 2s;
 }
@@ -566,22 +566,22 @@ input[type="file" i] {
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
+#main{
   transition: margin-left 0.6s;
   padding: 5px;
 }
 
-.cd_page_editor {
+.cd_page_editor{
   padding-left: 20%;
 }
 
-.page_content {
+.page_content{
   border: 1px solid #c9c9c9;
   padding: 0.5rem;
 }
 
 
-.cd_pass {
+.cd_pass{
   top: -35px;
   left: 88%;
   position: relative;
@@ -604,7 +604,7 @@ input[type="file" i] {
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.nav-side-menu {
+.nav-side-menu{
   overflow: auto;
   font-size: 1rem;
   font-weight: 200;
@@ -621,7 +621,7 @@ input[type="file" i] {
   overflow: hidden;
 }
 
-.feather {
+.feather{
   width: 16px;
   height: 16px;
 }
@@ -630,7 +630,7 @@ input[type="file" i] {
    * Sidebar
    */
 
-.sidebar {
+.sidebar{
   position: fixed;
   top: 0;
   /* rtl:raw:
@@ -646,13 +646,13 @@ input[type="file" i] {
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 767.98px){
   .sidebar {
     top: 5rem;
   }
 }
 
-.sidebar-sticky {
+.sidebar-sticky{
   position: relative;
   top: 0;
   height: calc(100vh - 48px);
@@ -662,26 +662,26 @@ input[type="file" i] {
   /* Scrollable contents if viewport is shorter than content. */
 }
 
-.sidebar .nav-link {
+.sidebar .nav-link{
   font-weight: 500;
   color: #333;
 }
 
-.sidebar .nav-link .feather {
+.sidebar .nav-link .feather{
   margin-right: 4px;
   color: #727272;
 }
 
-.sidebar .nav-link.active {
+.sidebar .nav-link.active{
   color: #2470dc;
 }
 
 .sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
+.sidebar .nav-link.active .feather{
   color: inherit;
 }
 
-.sidebar-heading {
+.sidebar-heading{
   font-size: .75rem;
 }
 
@@ -689,42 +689,42 @@ input[type="file" i] {
    * Navbar
    */
 
-.navbar-brand {
+.navbar-brand{
   padding-top: .75rem;
   padding-bottom: .75rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
 
-.navbar .navbar-toggler {
+.navbar .navbar-toggler{
   top: .25rem;
   right: 1rem;
 }
 
-.navbar .form-control {
+.navbar .form-control{
   padding: .75rem 1rem;
 }
 
-.form-control-dark {
+.form-control-dark{
   color: #fff;
   background-color: rgba(255, 255, 255, .1);
   border-color: rgba(255, 255, 255, .1);
 }
 
-.form-control-dark:focus {
+.form-control-dark:focus{
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+@media screen and (max-height: 450px){
   .sidenav {
     padding-top: 15px;
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 992px){
   #cd_toggler1 {
     display: none;
   }
@@ -733,7 +733,7 @@ input[type="file" i] {
 /* Chats */
 
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 650px){
   .column {
     width: 100%;
     display: block;
