@@ -36,11 +36,11 @@ function App() {
             <Alert />
             <Routes>
               <Route exact path='' element={<Home />}></Route>
-              <Route exact path='/dashboard' element={<Dashboard />}></Route>
-              <Route exact path="/about" element={<About />}></Route>
-              <Route exact path="/login" element={<Login  setProgress={setProgress} />}></Route>
-              <Route exact path="/signup" element={<Signup  setProgress={setProgress} />}></Route>
-              <Route exact path="/chat" element={<Chat setProgress={setProgress} />}></Route>
+              <Route exact path='dashboard' element={<Dashboard />}></Route>
+              <Route exact path="about" element={<About />}></Route>
+              <Route exact path="login" element={<Login  setProgress={setProgress} />}></Route>
+              <Route exact path="signup" element={<Signup  setProgress={setProgress} />}></Route>
+              <Route exact path="chat" element={<Chat setProgress={setProgress} />}></Route>
               <Route path="*" element={<PageNotFound />}
               />
             </Routes>

@@ -94,17 +94,17 @@ const MyNavbar = (props) => {
             <Navbar collapseOnSelect expand="md" bg="light" variant="light" fixed='top'>
                 <Container fluid>
 
-                    <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
+                    <Link className='mx-3' aria-current="page" to="" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
 
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
 
                         <Nav className="me-auto">
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/dashboard" ? "active" : ""}`} aria-current="page" to="/dashboard">Dashboard</Link>
+                                <Link className={`nav-link ${location.pathname === "dashboard" ? "active" : ""}`} aria-current="page" to="dashboard">Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname.includes("/chat") ? "active" : ""}`} to="/chat">Chat</Link>
+                                <Link className={`nav-link ${location.pathname.includes("chat") ? "active" : ""}`} to="chat">Chat</Link>
                             </li>
                         </Nav>
                         <Nav className="ms-auto">
@@ -127,13 +127,13 @@ const MyNavbar = (props) => {
         return (
             <Navbar collapseOnSelect expand="md" bg="light" variant="light" fixed='top' className="shadow-sm">
                 <Container fluid>
-                    <Link className='mx-3' aria-current="page" to="/" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
+                    <Link className='mx-3' aria-current="page" to="" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ms-auto">
                             <li className="nav-item">
-                                <Link className='mx-1' to="/login" role="button"><Button variant="outline-primary" size='sm'>Login</Button></Link>
-                                <Link className='mx-1' to="/signup" role="button"><Button variant="outline-primary" size='sm'>Register</Button></Link>
+                                <Link className='mx-1' to="login" role="button"><Button variant="outline-primary" size='sm'>Login</Button></Link>
+                                <Link className='mx-1' to="signup" role="button"><Button variant="outline-primary" size='sm'>Register</Button></Link>
                             </li>
                         </Nav>
                     </Navbar.Collapse>
