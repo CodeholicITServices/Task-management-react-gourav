@@ -19,7 +19,8 @@ import 'bootstrap/dist/js/bootstrap.js';
 
 function App() {
   const [progress, setProgress] = useState(0)
-
+  const AppURL = process.env.REACT_APP_URL
+  console.log(AppURL)
   return (
     <>
       <NoteState>
@@ -35,12 +36,12 @@ function App() {
           <div className="container" style={{marginTop: 5+"rem"}}>
             <Alert />
             <Routes>
-              <Route exact path='' element={<Home />}></Route>
-              <Route exact path='dashboard' element={<Dashboard />}></Route>
-              <Route exact path="about" element={<About />}></Route>
-              <Route exact path="login" element={<Login  setProgress={setProgress} />}></Route>
-              <Route exact path="signup" element={<Signup  setProgress={setProgress} />}></Route>
-              <Route exact path="chat" element={<Chat setProgress={setProgress} />}></Route>
+              <Route exact path={`${AppURL}/`} element={<Home />}></Route>
+              <Route exact path={`${AppURL}/dashboard`} element={<Dashboard />}></Route>
+              <Route exact path={`${AppURL}/about`} element={<About />}></Route>
+              <Route exact path={`${AppURL}/login`} element={<Login  setProgress={setProgress} />}></Route>
+              <Route exact path={`${AppURL}/signup`} element={<Signup  setProgress={setProgress} />}></Route>
+              <Route exact path={`${AppURL}/chat`} element={<Chat setProgress={setProgress} />}></Route>
               <Route path="*" element={<PageNotFound />}
               />
             </Routes>

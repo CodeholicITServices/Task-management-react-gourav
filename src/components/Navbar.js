@@ -9,7 +9,8 @@ import Nav from 'react-bootstrap/Nav';
 
 const MyNavbar = (props) => {
     const { setProgress } = props
-    let url = process.env.REACT_APP_BACKEND_URL
+    const url = process.env.REACT_APP_BACKEND_URL
+    const AppURL = process.env.REACT_APP_URL
     const context = useContext(noteContext);
     const { user, setUser, showAlert, getUser, isLogin, setIsLogin } = context;
     let location = useLocation();
@@ -47,7 +48,7 @@ const MyNavbar = (props) => {
                 localStorage.removeItem("token")
                 setProgress(100)
                 
-                navigate("/")
+                navigate(`${AppURL}/`)
             }
             else {
                 showAlert('Something went wrong, please try again later', "Danger")
@@ -101,16 +102,20 @@ const MyNavbar = (props) => {
 
                         <Nav className="me-auto">
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "dashboard" ? "active" : ""}`} aria-current="page" to="dashboard">Dashboard</Link>
+                                <Link className={`nav-link ${location.pathname === "dashboard" ? "active" : ""}`} aria-current="page" to={`${AppURL}/dashboard`}> Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname.includes("chat") ? "active" : ""}`} to="chat">Chat</Link>
+                                <Link className={`nav-link ${location.pathname.includes("chat") ? "active" : ""}`} to={`${AppURL}/chat`}> Chat</Link>
                             </li>
                         </Nav>
                         <Nav className="ms-auto">
                             <NavDropdown title={user.name} id="collasible-nav-dropdown" style={{marginRight: 100+"px"}}>
-                                <NavDropdown.Item href="">My Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="">Change Password</NavDropdown.Item>
+                                <li>
+                                    <Link className="dropdown-item" to={`${AppURL}/`}>My Profile</Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item"to={`${AppURL}/`}>Change Password</Link>
+                                </li>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => { logout() }}>
                                     Logout
@@ -127,13 +132,17 @@ const MyNavbar = (props) => {
         return (
             <Navbar collapseOnSelect expand="md" bg="light" variant="light" fixed='top' className="shadow-sm">
                 <Container fluid>
-                    <Link className='mx-3' aria-current="page" to="" style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
+                    <Link className='mx-3' aria-current="page" to={`${AppURL}/`} style={{ fontSize: 1.5 + 'rem' }}>TMS</Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ms-auto">
                             <li className="nav-item">
-                                <Link className='mx-1' to="login" role="button"><Button variant="outline-primary" size='sm'>Login</Button></Link>
-                                <Link className='mx-1' to="signup" role="button"><Button variant="outline-primary" size='sm'>Register</Button></Link>
+                                <Link className='mx-1' to={`${AppURL}/login`} role="button">
+                                    <Button variant="outline-primary" size='sm'>Login</Button>
+                                </Link>
+                                <Link className='mx-1' to={`${AppURL}/signup`} role="button">
+                                    <Button variant="outline-primary" size='sm'>Register</Button>
+                                </Link>
                             </li>
                         </Nav>
                     </Navbar.Collapse>

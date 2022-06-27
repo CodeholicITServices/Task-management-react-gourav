@@ -11,11 +11,11 @@ const Conversation = (props) => {
     let url = process.env.REACT_APP_BACKEND_URL
     let localMsg = JSON.parse(sessionStorage.getItem('messages[' + room + ']'))
     const { convUser } = props
-    
-    const buildMessage = (messages, room_id)=> {
+
+    const buildMessage = (messages, room_id) => {
         // console.log(Object.values(messages))
         if (messages) {
-            messages.map((message)=> {
+            messages.map((message) => {
                 // console.log(message)
                 let html = "";
                 let created_at = new Date(message.created_at).toLocaleTimeString();
@@ -97,39 +97,39 @@ const Conversation = (props) => {
                 body: JSON.stringify({ 'room_id': room })
 
             })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                console.log("Error")
-            })
-            .then((json) => {
-                if (json.success) {
-                    // console.log(json)
-                    if(json.messages){
-                        buildMessage(json.messages, room)
-                        localMsg = JSON.stringify(json.messages)
-                        sessionStorage.setItem('messages[' + room + ']', localMsg);
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
                     }
-                }
-                else {
-                    console.log("Success not found")
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+                    console.log("Error")
+                })
+                .then((json) => {
+                    if (json.success) {
+                        // console.log(json)
+                        if (json.messages) {
+                            buildMessage(json.messages, room)
+                            localMsg = JSON.stringify(json.messages)
+                            sessionStorage.setItem('messages[' + room + ']', localMsg);
+                        }
+                    }
+                    else {
+                        console.log("Success not found")
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
         }
         else {
             console.log("Getting messages from sesionStorage.")
-            if(localMsg !== []){
-                
+            if (localMsg !== []) {
+
                 buildMessage(Object.values(localMsg), room)
             }
         }
 
     }
-    
+
     const sendChatToServer = (message) => {
         socket.emit('sendChatToServer', JSON.stringify(message));
     }
@@ -140,102 +140,102 @@ const Conversation = (props) => {
         video.srcObject = stream;
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const addMessages = (data) => {
             var element = document.createElement('div');
             let created_at = new Date(data.created_at).toLocaleTimeString();
             let innerHTML = ''
-      
+
             if (data.sender === user.id) {
-              /* Send message */
-              element.classList.add('message', 'sent');
-              if (data.type === 'image') {
-                /* Image message */
-                element.classList.add('message-image');
+                /* Send message */
+                element.classList.add('message', 'sent');
+                if (data.type === 'image') {
+                    /* Image message */
+                    element.classList.add('message-image');
+                    innerHTML += '' +
+                        '<img src="' + data.message + '" style="width:50%; height:50%;">'
+                }
+                else {
+                    /* Text message */
+                    innerHTML += data.message
+                }
+
+
                 innerHTML += '' +
-                  '<img src="' + data.message + '" style="width:50%; height:50%;">'
-              }
-              else {
-                /* Text message */
-                innerHTML += data.message
-              }
-      
-      
-              innerHTML += '' +
-                '<span class="metadata">' +
-                '<span class="time">' + created_at + '</span>' +
-                '<span class="tick">' +
-                '<i class="fa fa-check-double fa-sm"></i>' +
-                '</span>' +
-                '</span>';
+                    '<span class="metadata">' +
+                    '<span class="time">' + created_at + '</span>' +
+                    '<span class="tick">' +
+                    '<i class="fa fa-check-double fa-sm"></i>' +
+                    '</span>' +
+                    '</span>';
             }
             else {
-              /* Recieved message */
-              element.classList.add('message', 'received');
-              if (data.type === 'image') {
-                /* Image message */
-                element.classList.add('message-image');
+                /* Recieved message */
+                element.classList.add('message', 'received');
+                if (data.type === 'image') {
+                    /* Image message */
+                    element.classList.add('message-image');
+                    innerHTML += '' +
+                        '<span class="sender">' + data.sender + '</span>' +
+                        '<img src="' + data.message + '" style="width:50%; height:50%;">'
+                }
+                else {
+                    /* Text message */
+                    innerHTML += '<span class="sender">' + data.sender + '</span>' + data.message
+                }
+
+
                 innerHTML += '' +
-                  '<span class="sender">' + data.sender + '</span>' +
-                  '<img src="' + data.message + '" style="width:50%; height:50%;">'
-              }
-              else {
-                /* Text message */
-                innerHTML += '<span class="sender">' + data.sender + '</span>' + data.message
-              }
-      
-      
-              innerHTML += '' +
-                '<span class="metadata">' +
-                '<span class="time">' + created_at + '</span>' +
-                '</span>';
+                    '<span class="metadata">' +
+                    '<span class="time">' + created_at + '</span>' +
+                    '</span>';
             }
-      
+
             element.innerHTML = innerHTML;
             return element;
-          }
+        }
         try {
             socket.on('sendChatToClient', (res) => {
-              console.log("recieved message from server")
-              // var localMessages = JSON.parse(sessionStorage.getItem('messages[' + room + ']'))
-              // var newMessage = { ...localMessages, res }
-              // sessionStorage.setItem('messages[' + room + ']', JSON.stringify(newMessage))
-      
-              var data = JSON.parse(res);
-              if (data.message) {
-                // console.log('I am running');
-                var message = addMessages(data);
-                let conversation = jQuery('.conversation-container')
-                conversation.append(message);
-                conversation.scrollTop(conversation[0].scrollHeight);
-      
-                var messages;
-                if (typeof (Storage) !== "undefined") {
-                  var lastind = 0
-                  messages = JSON.parse(sessionStorage.getItem('messages[' + room + ']'));
-                  if (messages === null) {
-                    messages = []
-                    lastind = 0
-                  }
-                  else {
-                    console.log("messages are not null")
-                    lastind = Object.keys(messages).length
-                  }
-                  console.log(messages)
-                  messages[lastind] = data
-                  // console.log(messages)
-                  sessionStorage.setItem('messages[' + room + ']', JSON.stringify(messages));
+                console.log("recieved message from server")
+                // var localMessages = JSON.parse(sessionStorage.getItem('messages[' + room + ']'))
+                // var newMessage = { ...localMessages, res }
+                // sessionStorage.setItem('messages[' + room + ']', JSON.stringify(newMessage))
+
+                var data = JSON.parse(res);
+                if (data.message) {
+                    // console.log('I am running');
+                    var message = addMessages(data);
+                    let conversation = jQuery('.conversation-container')
+                    conversation.append(message);
+                    conversation.scrollTop(conversation[0].scrollHeight);
+
+                    var messages;
+                    if (typeof (Storage) !== "undefined") {
+                        var lastind = 0
+                        messages = JSON.parse(sessionStorage.getItem('messages[' + room + ']'));
+                        if (messages === null) {
+                            messages = []
+                            lastind = 0
+                        }
+                        else {
+                            console.log("messages are not null")
+                            lastind = Object.keys(messages).length
+                        }
+                        console.log(messages)
+                        messages[lastind] = data
+                        // console.log(messages)
+                        sessionStorage.setItem('messages[' + room + ']', JSON.stringify(messages));
+                    }
                 }
-              }
             });
-      
+
             socket.on('disconnect', () => {
-              console.log("Disconnected socket.")
-              sessionStorage.clear()
+                console.log("Disconnected socket.")
+                sessionStorage.clear()
             })
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        } //eslint-disable-next-line
     }, [socket])
 
     useEffect(() => {

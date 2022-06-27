@@ -1,7 +1,6 @@
 import NoteContext from "./noteContext";
 import { useState } from "react";
 import io from 'socket.io-client'
-import jQuery from 'jquery'
 
 const NoteState = (props) => {
   const [user, setUser] = useState([])
@@ -11,7 +10,8 @@ const NoteState = (props) => {
   const [room, setRoom] = useState('')
   const token = localStorage.getItem("token")
   const [socket, setsocket] = useState('')
-  let url = process.env.REACT_APP_BACKEND_URL
+  const url = process.env.REACT_APP_BACKEND_URL
+  const scoket_domain = process.env.REACT_APP_SOCKET_DOMAIN
 
   // Alert function
   const [alert, setAlert] = useState(null)
@@ -71,7 +71,6 @@ const NoteState = (props) => {
   }
 
   const startSocket = (room) => {
-    const scoket_domain = process.env.REACT_APP_SOCKET_DOMAIN
     setsocket(io(scoket_domain + '/dynamic-' + room, {
       auth: {
         token: token

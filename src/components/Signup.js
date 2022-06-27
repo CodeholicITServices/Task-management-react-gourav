@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import noteContext from '../context/notes/noteContext'
 
 const Signup = (props) => {
-  const {setProgress} = props
-  let url = process.env.REACT_APP_BACKEND_URL
+  const { setProgress } = props
+  const url = process.env.REACT_APP_BACKEND_URL
+  const AppURL = process.env.REACT_APP_URL
   const context = useContext(noteContext)
   const { getUser, showAlert } = context;
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: ""})
+  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const Signup = (props) => {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
         'Accept': 'application/json'
-    },
+      },
       body: JSON.stringify({ name, email, password })
     });
     setProgress(50)
@@ -29,7 +30,7 @@ const Signup = (props) => {
     if (json.success) {
       setProgress(80)
       sessionStorage.setItem('token', json.token);
-      navigate("/dashboard");
+      navigate(`${AppURL}/dashboard`);
       getUser()
     }
     else {
@@ -38,7 +39,7 @@ const Signup = (props) => {
     setProgress(100)
   }
 
-  const onChange = async(e) => {
+  const onChange = async (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
 
   }
@@ -63,10 +64,11 @@ const Signup = (props) => {
         </div>
         <div className="mb-3">
           <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-          <input type="password" className={`form-control ${credentials.password !== credentials.cpassword ? 'is-invalid':''}`} autoComplete='' id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
+          <input type="password" className={`form-control ${credentials.password !== credentials.cpassword ? 'is-invalid' : ''}`} autoComplete='' id="cpassword" name="cpassword" onChange={onChange} minLength={5} required />
           {credentials.password !== credentials.cpassword ? <div id="cpasswordHelp" className="form-text">Password and confirm password not matched.</div> : ''}
         </div>
         <button disabled={credentials.name.length < 5 || credentials.password.length < 5 || credentials.password !== credentials.cpassword} type="submit" className="btn btn-primary">Submit</button>
+        <Link to={`${AppURL}/login`} className="btn btn-link"> Already have an account? </Link>
       </form>
     </div>
   )

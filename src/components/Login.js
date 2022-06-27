@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import noteContext from '../context/notes/noteContext'
 import Button from 'react-bootstrap/Button'
 import jQuery from 'jquery'
@@ -9,6 +9,7 @@ import jQuery from 'jquery'
 const Login = (props) => {
     const { setProgress } = props
     let url = process.env.REACT_APP_BACKEND_URL
+    const AppURL = process.env.REACT_APP_URL
     const context = useContext(noteContext)
     const { showAlert, setIsLogin } = context;
     const [credentials, setCredentials] = useState({ email: "", password: "" })
@@ -114,8 +115,13 @@ const Login = (props) => {
                                     </div>
                                 </div>
                                 <div className="row mb-0">
-                                    <div className="col-md-8 offset-md-4">
+                                    <div className="col-md-8 d-grid offset-2">
                                         <Button variant="primary" type='submit' disabled={credentials.email.length < 1 || credentials.password.length < 1}>Login</Button>
+                                    </div>
+                                    <div className="col-md-8 offset-md-4">
+                                        <Link to={`${AppURL}/`} className="btn btn-link"> Forgot your password? </Link>
+                                        <br />
+                                        <Link to={`${AppURL}/signup`} className="btn btn-link"> Create a new account? </Link>
                                     </div>
                                 </div>
                             </form>
